@@ -1,9 +1,12 @@
 const express = require('express');
 const app = express();
 const User = require('../models/users');
+const bcrypt = require("bcrypt");
+const {verificar_token}=require('../middleware/auth')
+
 //app.use(require('./users.js'));
 
-app.get('/users', (req, res) => {
+app.get('/users', verificar_token, (req, res) => {
     User.find({
         "state": true
     }, (err, usuarioDB) => {
@@ -28,7 +31,7 @@ app.post("/users", (req, res) => {
         lastname: body.apellido,
         email: body.email,
         username: body.username,
-        password: body.password,
+        password: bcrypt.hashSync(body.password,10),
         age: body.age,
         rol: body.rol
     });
@@ -53,13 +56,18 @@ app.post("/users", (req, res) => {
     })
 })
 
-app.put('/users/:id', (req, res) => {
+app.put('/users/:id',verificar_token, (req, res) => {
     let id = req.params.id
     let body = req.body;
     let usuarioPorEditar = {
         nombre: body.nombre,
         apellido: body.apellido,
-        edad: body.edad
+        edad: body.edad,
+        email: body.email,
+        username: body.username,
+        password: body.password,
+        rol: body.rol
+
     }
 
     User.findByIdAndUpdate(id, usuarioPorEditar, {
@@ -72,7 +80,7 @@ app.put('/users/:id', (req, res) => {
                 err
             });
         }
-        if (!res) {
+        if (!usuarioDB) {
             return res.status(400).json({
                 ok: false,
                 usuarioDB
@@ -88,7 +96,7 @@ app.put('/users/:id', (req, res) => {
 });
 
 
-app.delete('/users', (req, res) => {
+app.delete('/users/:id', verificar_token, (req, res) => {
     let id = req.params.id
     let usuarioState = {
         state: false

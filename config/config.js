@@ -15,3 +15,10 @@ process.env.URLDB = urlDB
 //-------------------------------------------
 
 process.env.PORT = process.env.PORT || 3000;
+
+ //SEED
+
+ process.env.SEED = process.env.SEED || "seed-secreto";
+ //CADUCIDAD
+
+ process.env.CADUCIDAD = process.env.CADUCIDAD || '30d';
