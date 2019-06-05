@@ -5,7 +5,7 @@
 let urlDB;
 //urlDB = 'mongodb://admin:admin123@ds263816.mlab.com:63816/sga2'
 if(process.env.NODE_ENV == 'dev'){
-    urlDB = 'mongodb://localhost:27017/sga2';
+    urlDB = 'mongodb://localhost:27017/sga';
 }else{
     urlDB = process.env.MONGO_URI;
 }

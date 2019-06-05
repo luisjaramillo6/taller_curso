@@ -7,7 +7,7 @@ const cors = require('cors');
 const port = 3000
 
 //  Middelware
-app,use(cors());
+app.use(cors());
 app.use(bodyParser.urlencoded({
   extended:false
 }));

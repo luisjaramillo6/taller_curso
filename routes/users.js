@@ -27,8 +27,8 @@ app.get('/users', verificar_token, (req, res) => {
 app.post("/users", (req, res) => {
     let body = req.body;
     let userGuardar = new User({
-        name: body.nombre,
-        lastname: body.apellido,
+        name: body.name,
+        lastname: body.lastname,
         email: body.email,
         username: body.username,
         password: bcrypt.hashSync(body.password,10),

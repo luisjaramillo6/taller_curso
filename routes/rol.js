@@ -19,7 +19,7 @@ app.get('/rol',(req,res)=>{
 
 app.post('/rol',(req,res)=>{
     let body = req.body
-    let rolPAzraGuardar = new Rol({
+    let rolParaGuardar = new Rol({
         name: body.name,
         description: body.description
     });
